@@ -1,5 +1,22 @@
-import "./App.css";
+import { TimerIcon } from "lucide-react";
+import { Container } from "./components/Container";
+import { Heading } from "./components/Heading";
+import "./styles/global.css";
+import "./styles/theme.css";
 
 export function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <>
+      <Container>
+        <section>
+          <Heading>
+            Olá Mundo
+            <button>
+              <TimerIcon />
+            </button>
+          </Heading>{" "}
+        </section>
+      </Container>
+    </>
+  );
 }

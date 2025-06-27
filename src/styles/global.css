@@ -15,16 +15,3 @@ body {
   background: var(--gray-900);
   color: var(--text-default);
 }
-
-.container {
-  max-width: 98rem;
-  margin: 0 auto;
-}
-
-.container-fluid {
-  width: 100%;
-}
-
-.content {
-  margin: 3.2rem;
-}

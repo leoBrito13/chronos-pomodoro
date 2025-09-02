@@ -9,11 +9,12 @@ import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 import { Tips } from "../Tips";
+import { showMessage } from "../../adapters/showMessage";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
-
+  const taskLastName = state.tasks[state.tasks.length - 1]?.name || "";
   // ciclos
   const nextCycle = getNextCycle(state.currentCyrcle);
   const nextCycleType = getNextCycleType(nextCycle);
@@ -26,7 +27,8 @@ export function MainForm() {
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      return alert("Digite o nome da tarefa");
+      showMessage.warning("Digite o nome da tarefa");
+      return;
     }
 
     const newTask: TaskModel = {
@@ -43,12 +45,16 @@ export function MainForm() {
       type: TaskActionTypes.START_TASK,
       payload: newTask,
     });
+
+    showMessage.success("Tarefa Iniciada");
   }
 
   function handleInterruptTask() {
     dispatch({
       type: TaskActionTypes.INTERRUPT_TASK,
     });
+
+    showMessage.error("Tarefa interrompida");
   }
   return (
     <form onSubmit={handleCreateNewTask} className="form" action="">
@@ -59,6 +65,7 @@ export function MainForm() {
           id="task"
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={taskLastName}
         />
       </div>
       <div className="formRow">

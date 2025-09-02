@@ -1,4 +1,3 @@
-import { Children } from "react";
 import styles from "./styles.module.css";
 
 type HeadingProps = {

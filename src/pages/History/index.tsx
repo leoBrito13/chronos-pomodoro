@@ -17,7 +17,11 @@ export function History() {
   const { state, dispatch } = useTaskContext();
   const [confirmClearHistory, setConfirmClearHistory] = useState(false);
   const hasTasks = state.tasks.length > 0;
+  const limitTask = state.tasks.length <= 100;
 
+  useEffect(() => {
+    document.title = "Histórico - Chronos Pomodoro";
+  }, []);
   const [sortTasksOptions, setSortTaskOptions] = useState<SortTasksOptions>(
     () => {
       return {
@@ -145,6 +149,12 @@ export function History() {
         {!hasTasks && (
           <p style={{ textAlign: "center", fontWeight: "bold" }}>
             Ainda não existem tarefas criadas.
+          </p>
+        )}
+
+        {!limitTask && (
+          <p style={{ textAlign: "center", fontWeight: "bold" }}>
+            Limite de tarefas atingido. Apague o histórico.
           </p>
         )}
       </Container>
